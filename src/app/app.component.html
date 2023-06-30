@@ -1,0 +1,25 @@
+<h1>{{title | titlecase}}</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Salary</th>
+    <th>City</th>
+    <th>DOB</th>
+    <th>Age</th>
+  </tr>
+
+  <tr *ngFor="let user of users">
+    <td>{{user.name | uppercase}}</td>
+    <td>{{user.age | currency:'INR'}}</td>
+    <td>{{user.city | lowercase}}</td>
+    <td>{{user.DOB | date}}</td>
+    <td>{{user.DOB | age}}</td>
+  </tr>
+</table>
+
+<!-- json pipe will convert the object into json data using the json.stringify method -->
+<!-- pre tag is used for formatting the json document -->
+<pre>
+  {{users | json}}
+</pre>

@@ -1,0 +1,184 @@
+<div class="modal-container">
+  <div class="modal modal--full">
+    <div class="modal__dialog">
+      <div id="addAssetGroupModal" class="modal__content" data-auto-id="policy-modal">
+        <a class="modal__close" data-auto-id="addAssetHide" (click)="closeAssetGroupModal()"><span
+            class="icon-close"></span></a>
+        <div cxuiModalTitle class="modal-header text-left half-padding-top "
+          [id]="'addAssetGroupModalTitle'">
+          <h4 class="modal-title modal-header-styling" [innerText]="modalHeading"></h4>
+          <cxui-alert class="qtr-margin-top text-size-18" [variant]="alertVariant" *ngIf="alertMessage!==''">
+            {{alertMessage}}
+          </cxui-alert>
+        </div>
+        <div *ngIf="modalLoading" class="absolute-center">
+          <ng-container>
+            <cxui-loader data-auto-id="cp-modal-loading-spinner-v3"></cxui-loader>
+          </ng-container>
+        </div>
+        <div class="modal-body body-height">
+          <div class="base-padding-top" *ngIf="error">
+            <!-- <app-full-width-banner [(show)]="error">
+							{{ errorMessage }}
+						</app-full-width-banner> -->
+          </div>
+          <div class="row">
+            <div class="add-asset-left-panel base-padding-top">
+              <div class="form-group">
+                <div class="form-group__text">
+                  <label for="input-layout-default">Group Name</label>
+                  <input cxui-input data-auto-id="cp-asset-groupname-input" id="input-groupName" [(ngModel)]="groupName"
+                    (ngModelChange)="validGroupName = false; error = false" [disabled]="isEdit"
+                    (focusout)="validateGroupname()" type="text" autocomplete="off" maxlength="200"
+                    placeholder="Enter Group Name" />
+                </div>
+                <div *ngIf="showErrorGroupNameValidation" class="qtr-padding-top text-left validation-error-styling"
+                  data-auto-id="cp-error-validation" i18n>
+                  Group Name can only contain letters, numbers, spaces, periods
+                  (.), dashes (-), and underscores(_).
+                </div>
+              </div>
+              <div class="filter-fields">
+                <h3 class="text-muted half-padding-top half-padding-bottom text-left	asset-attribute-styling" i18n>
+                  Asset Group Type
+                </h3>
+                <div id="assetSearch" class="group_type">
+                  <cxui-button-group>
+                    <button cxui-button (click)="selectGroupType($event,'static')" [selected]="staticAssetGroup"
+                      [disabled]="isEdit">
+                      Static
+                    </button>
+                    <button cxui-button (click)="selectGroupType($event,'dynamic')" [selected]="!staticAssetGroup"
+                      [disabled]="isEdit" *hasPermissions="'AssetManagerService.asset-group.dynamicGroups';app:['AssetManagerService','asset-group']" >
+                      Dynamic
+                    </button>
+                  </cxui-button-group>
+                </div>
+              </div>
+              <cxui-accordion [bordered]="true" [left]="true">
+                <cxui-expansion-panel expanded>
+                  <cxui-expansion-panel-header>
+                    <cxui-expansion-panel-title>Asset Selection criteria</cxui-expansion-panel-title>
+                  </cxui-expansion-panel-header>
+                  <div class="side-filter">
+                    <ng-container [formGroup]="assetSelectionGroup" *ngFor="let assetAttribute of dropdownOptions">
+                      <label style="display:flex ;" for="short-field">{{assetAttribute.displayName}}</label>
+                      <div class="filter-fields">
+                        <input *ngIf="assetAttribute.displayType ==='text'" class="side-filter-input" cxui-input
+                          id="short-field" placeholder="Enter {{assetAttribute.displayName}} here" id="input-groupName"
+                          type="text" maxlength="200" formControlName="{{assetAttribute.displayName}}">
+                        <cxui-select formControlName="{{assetAttribute.displayName}}"
+                          *ngIf="assetAttribute.displayType ==='select'">
+                          <cxui-option [value]="attributeOption.displayName"
+                            *ngFor="let attributeOption of assetAttribute.displayOptions">
+                            {{attributeOption.displayName}}</cxui-option>
+                        </cxui-select>
+                        <cxui-button-group class="side-filter-button-group">
+                          <button cxui-button (click)="setIncludeExclude($event,true,assetAttribute.displayName)"
+                            [selected]="intializeIncludeExclude(assetAttribute.displayName)">
+                            Include
+                          </button>
+                          <button cxui-button (click)="setIncludeExclude($event,false,assetAttribute.displayName)"
+                            [selected]="!intializeIncludeExclude(assetAttribute.displayName)">
+                            Exclude
+                          </button>
+                        </cxui-button-group>
+                      </div>
+                      <br />
+                    </ng-container>
+                  </div>
+                </cxui-expansion-panel>
+              </cxui-accordion>
+
+
+
+            </div>
+            <div class="add-asset-right-panel base-padding-top">
+              <div class="row">
+                <div class="text-left text-muted col-md-6">
+                  <span class="qtr-margin-left text-small" data-auto-id="ShowingAssetsCount" i18n>Showing {{
+                    shownAssetsData.length }} of
+                    {{ totalRows | number }} matching assets
+                  </span>
+                  <span class="text-small" data-auto-id="ShowingSelectedAssetsCount" i18n>
+                    | {{ selectedAssetsCount | number }} assets selected for this group
+                  </span>
+                </div>
+                <div *ngIf="staticAssetGroup" class="text-left col-md-6">
+                  <div class="
+											form-group form-group--inline
+											base-margin-bottom
+											text-align-right
+										" *ngIf="showOnlyAssets" data-auto-id="toggleOptlnStatus" (click)="toggleShowAllAssets()">
+                    <label class="switch">
+                      <input type="checkbox" checked />
+                      <span class="switch__input"></span>
+                      <span class="switch__label" i18n>Show only selected assets</span>
+                    </label>
+                  </div>
+                  <div class="
+											form-group form-group--inline
+											base-margin-bottom
+											text-align-right
+										" *ngIf="!showOnlyAssets" (click)="toggleShowAllAssets()">
+                    <label class="switch">
+                      <input type="checkbox" data-auto-id="cp-update-optInOutStatus" />
+                      <span class="switch__input"></span>
+                      <span class="switch__label" i18n>Show only selected assets</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="loading" class="base-margin-bottom loader-margin">
+                <cxui-loader data-auto-id="cp-cxui-loader" class="flex justify-content-center"></cxui-loader>
+              </div>
+              <div class="add-edit-group-table-class">
+                <cisco-bpa-platform-custom-table-shell #devicesGrid [tableShellData]="assetsData"
+                  (sortChange)="sortData($event)" [enableRowSelection]="enableRowSelection"
+                  (allRowsSelected)="selectAll($event)" (itemsPerPageChange)="onItemsPerPageChange($event)"
+                  (currentPageChange)="onPageChange($event)" (rowsSelected)="rowSelected($event)"
+                  [displayColumnsName]="displayColumns" [isAllAssetSelected]="isAllRowsSelected">
+                </cisco-bpa-platform-custom-table-shell>
+              </div>
+              <div *ngIf="!loading && assetsData.tableData.length === 0">
+                <span class="text-muted text-xlarge" data-auto-id="NoResultsFoundTxt" i18n>No Results Found
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer" cxuiModalFooter>
+          <div class="col-md-12 base-padding-top base-padding-bottom">
+            <button [disabled]="
+              !(
+                groupName.length &&
+                validGroupName &&
+                !showErrorGroupNameValidation &&
+                 (staticAssetGroup ?  (isAllSelected || selectedRows.length): true)
+              )
+            " *ngIf="!isEdit" class="btn btn--primary btn--wide"
+              data-auto-id="cp-add-asset-group-save-btn" (click)="saveAssetGroup()" i18n="add asset save button">
+              Save
+            </button>
+            <button [disabled]="
+									!(
+										(groupName.length && validGroupName) ||
+										selectionChangedEdit 
+									) || showErrorGroupNameValidation
+								" *ngIf="isEdit" class="btn btn--primary btn--wide" data-auto-id="cp-edit-asset-group-save-btn"
+              (click)="onEditAssetGroup()" i18n="edit asset save button">
+              Save
+            </button>
+            <button [disabled]="resetDisabled" *ngIf="isEdit" class="btn btn--primary btn--wide"
+              data-auto-id="cp-edit-asset-group-save-btn" (click)="reset()" i18n="edit asset save button">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

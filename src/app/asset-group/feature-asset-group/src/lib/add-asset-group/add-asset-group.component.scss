@@ -1,0 +1,329 @@
+@import '../../../../../../libs/cxui-components/src/scss/variables.scss';
+
+.cui .modal--large .modal__dialog {
+  max-width: 1200px !important;
+}
+
+.column-width-styling {
+  width: 300px !important;
+}
+
+.modal-header-styling {
+  color: $gray-text-color;
+  font-weight: 500;
+}
+
+.validation-error-styling {
+  color: #e2231a;
+}
+
+.asset-attribute-styling {
+  color: $gray-text-color;
+  font-weight: 300;
+  margin: 5px;
+  font-size: 20px;
+}
+
+.filter-wrapper {
+  max-height: 133px !important;
+  overflow: auto !important;
+}
+
+.disable-pointer {
+  pointer-events: none !important;
+}
+
+.body-height {
+  min-height: 403px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+.flipped {
+  transform: rotate(180deg);
+}
+
+.form-group__text {
+  input {
+    border: none;
+    border-bottom: 1px solid $light-gray-1;
+    background: $light-gray-background;
+
+    &:focus {
+      box-shadow: unset;
+    }
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d8d8;
+  border-radius: 4px;
+}
+
+::ng-deep input::placeholder {
+  color: $light-gray-text-color !important;
+}
+
+::ng-deep .cui .modal {
+  z-index: 20000 !important;
+}
+
+::ng-deep .cui .modal--large .modal__content {
+  padding: 20px 40px !important;
+}
+
+::ng-deep .cui .table > tbody > tr > td {
+  text-align: left !important;
+}
+
+::ng-deep .cui .form-group.input--compressed .form-group__text label {
+  display: none !important;
+}
+
+::ng-deep .cui .form-group.input--compressed .form-group__text input {
+  padding: 0 30px 0 10px !important;
+}
+
+:host ::ng-deep .dropdown-search__searchbar,
+.dropdown-search__searchbar[_ngcontent-lvi-c313] {
+  width: auto !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.border-red {
+  border: 1px solid $status-red;
+}
+
+.btn {
+  &--primary {
+    background-color: $cisco-blue !important;
+    border-color: $cisco-blue;
+    color: $white;
+
+    &:hover {
+      border-color: $cisco-blue;
+    }
+  }
+}
+
+.cui-alert {
+  .alert.alert--danger {
+    border: 1px solid $white !important;
+  }
+}
+
+.role-input-background {
+  border: none !important;
+  border-bottom: 1px solid $light-gray-1 !important;
+  background: $light-gray-background !important;
+  white-space: nowrap;
+  padding-right: 30px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role-header-text {
+  font-weight: 600 !important;
+}
+
+.role-description-text {
+  font-size: 1.2rem !important;
+}
+
+::ng-deep .dropdown__menu a {
+  word-wrap: break-word !important;
+  white-space: normal !important;
+  line-height: 1.5em !important;
+  padding: 10px 5px !important;
+  height: auto !important;
+}
+
+:host ::ng-deep {
+  .dropdown-styling {
+    .form-group {
+      &.dropdown {
+        .form-group__text input {
+          border: none;
+          border-bottom: 1px solid $light-gray-1;
+          background: $light-gray-background;
+
+          &:focus {
+            box-shadow: unset;
+          }
+        }
+      }
+    }
+  }
+
+  .checkbox {
+    .checkbox__input {
+      position: initial;
+
+      &::after {
+        background-color: $cisco-blue;
+      }
+    }
+  }
+
+  .alert-styling {
+    .alert {
+      &.alert--danger {
+        border: 1px solid $white;
+        border-left-width: 45px;
+      }
+
+      &.alert.alert--danger .alert__icon {
+        color: $status-red;
+      }
+
+      a {
+        display: none;
+      }
+    }
+  }
+
+  .checkbox__label {
+    font-weight: normal;
+  }
+
+  .create-btn {
+    background-color: transparent;
+    color: $border-dark-blue;
+    border: 2px solid $border-dark-blue;
+  }
+
+  .create-btn-panel {
+    margin: auto;
+  }
+}
+
+.confirm-button-styling {
+  font-size: 11px !important;
+  max-width: auto !important;
+}
+
+.btn-warning {
+  background-color: #e5bebe;
+}
+
+.loader-margin {
+  margin-top: 100px;
+}
+.add-asset-left-panel {
+  width: 30%;
+}
+.add-asset-right-panel {
+  width: 70%;
+}
+
+.text-align-right {
+  float: right;
+}
+
+/* ::ng-deep .cui .table tr th:first-child {
+	border-left: none !important;
+} */
+
+.table {
+  border: none;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: $black-text-color !important;
+  position: relative;
+  border-bottom: 1px solid #e4e4e4;
+
+  thead::after {
+    content: '';
+    border-bottom: 2px solid #e4e4e4;
+    display: block;
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+
+  th {
+    background-color: transparent !important;
+    border-right: none !important;
+  }
+
+  tr {
+    height: 42px;
+
+    &::after {
+      content: '';
+      border-bottom: 1px solid #e4e4e4;
+      display: block;
+      position: absolute;
+      width: 100%;
+      left: 0;
+    }
+
+    &:first-of-type::after {
+      border-bottom: none;
+    }
+  }
+}
+
+#assetSearch dropdown-search {
+  ::ng-deep .dropdown-search {
+    &__input {
+      height: 100% !important;
+      padding-bottom: 11px !important;
+    }
+    &__input:focus {
+      outline-color: #017cad !important;
+    }
+    &__searchbar {
+      form {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
+.filter-fields {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+}
+
+.side-filter-button-group button {
+  width: 60px !important;
+  font-size: 13px;
+}
+
+.filter-fields .side-filter-button-group {
+  padding-left: 5px;
+}
+
+.cxui-select input {
+  background-color: transparent !important;
+}
+
+.footer_buttons {
+  float: right;
+}
+
+.mat-dialog-title {
+  background-color: mat-color($primary);
+}
+.modal-header {
+  background-color: mat-color($primary);
+}
+
+.group_type {
+  margin: 10px;
+}
+
+.add-edit-group-table-class {
+  overflow: auto;
+}

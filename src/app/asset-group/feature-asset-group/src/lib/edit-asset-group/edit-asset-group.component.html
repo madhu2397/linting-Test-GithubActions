@@ -1,0 +1,41 @@
+<details-panel id="asset-group-list-details-panel" class="changeWidth detail-panel"
+    (hiddenChange)="handleHidden($event)" [hidden]="!hidden" [fullscreen]="fullscreen">
+    <details-panel-header (close)="onPanelClose()" [(fullscreen)]="fullscreen">
+        <div detailsPanelTitle class="text-small">
+            <div class="details-panel-title">
+                <h4>View {{ _selectedAssetGroup.name}}</h4>
+            </div>
+        </div>
+        <ng-container *ngTemplateOutlet="headerDetails"></ng-container>
+    </details-panel-header>
+    <ng-container *ngTemplateOutlet="overlayComponent"></ng-container>
+    <details-panel-overlay>
+        <ng-container *ngTemplateOutlet="overlayComponent"></ng-container>
+    </details-panel-overlay>
+</details-panel>
+
+<ng-template #headerDetails>
+    <div>
+        <div class="col-12 dbl-padding-top">
+        </div>
+        <div class=" asset-detail-buttons base-margin-top">
+            <div>
+                <div class="buttonsLayout">
+                    <button cxui-button [variant]="buttonVariant.SECONDARY" [disabled]="staticAssetGroup"
+                        (click)="editAssetGroup()"  *hasPermissions="'AssetManagerService.asset-group.manage';app:['AssetManagerService','asset-group']" >Edit</button>
+                    <button cxui-button [variant]="buttonVariant.SECONDARY" [disabled]="staticAssetGroup"
+                        (click)="deleteAssetGroup()"  *hasPermissions="'AssetManagerService.asset-group.manage';app:['AssetManagerService','asset-group']" >Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #overlayComponent>
+    <div class="edit-asset-group-modal">
+        <cisco-bpa-platform-custom-table-shell [tableShellData]="assetsData" (sortChange)="sortData($event)"
+            (itemsPerPageChange)="onItemsPerPageChange($event)" (searchData)="searchData($event)" [enableRowSelection]="false"
+            (currentPageChange)="onPageChange($event)" [displayColumnsName]="displayColumns">
+        </cisco-bpa-platform-custom-table-shell>
+    </div>
+</ng-template>

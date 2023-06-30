@@ -1,0 +1,48 @@
+<cisco-bpa-platform-edit-asset-group *ngIf="showView" [hidden]="showView" #editassetGroupModal
+  [selectedAssetGroup]="selectedAssetGroupForEdit" (closeModal)="closeEditAssetGroupModal($event)"
+  (assetGroupEdit)="editAssetGroup($event)" (assetGroupDelete)="deleteAssetGroup($event)">
+</cisco-bpa-platform-edit-asset-group>
+
+<div class="base-margin">
+  <div class="modal-header text-left half-padding-top half-padding-left">
+    <h1 class="no-margin text-capitalize dbl-padding-bottom text-size-36 text-weight-300" [innerText]="'Asset Groups'">
+    </h1>
+  </div>
+  <div class="half-margin-top flex">
+    <button cxui-button (click)="createAssetGroup()" *hasPermissions="
+        'AssetManagerService.asset-group.manage';
+        app: ['AssetManagerService', 'asset-group']
+      ">
+      Add Asset Group
+    </button>
+  </div>
+  <cisco-bpa-platform-custom-table-shell *hasPermissions="
+      'AssetManagerService.asset-group.view';
+      app: ['AssetManagerService', 'asset-group']
+    " [tableShellData]="assetGroupsData" (sortChange)="sortData($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)" (currentPageChange)="onPageChange($event)"
+    [enableRowSelection]="false" (searchData)="searchData($event)" (rowsClick)="rowClicked($event)"
+    (individualRowActionData)="findEligibleActions($event)" (rowsSelected)="rowSelected($event)"
+    (actionData)="actionSelected($event)" [gridMenuActions]="gridActions" [displayColumnsName]="displayColumns">
+  </cisco-bpa-platform-custom-table-shell>
+  <ng-template #gridActions>
+    <button class="cxui-table-menu device_action_btn" cxui-button [cxuiMenuTriggerFor]="menu" cxuiTooltip="More actions"
+      [variant]="buttonVariantTertairy" #btn>
+      <cxui-icon [iconName]="'moreHorizontal'" [decorative]="false" [variant]="menuIcon"></cxui-icon>
+    </button>
+    <cxui-menu #menu="menuRef">
+      <cxui-datalist>
+        <button class="cxui-menu__item" cxuiMenuItem (click)="getGridAction({ type: 'grid', action: 'export' })">
+          Export CSV
+        </button>
+      </cxui-datalist>
+    </cxui-menu>
+  </ng-template>
+
+  <cxui-modal #assetGroupModal [useChildTemplate]="true">
+    <ng-template>
+      <cisco-bpa-platform-add-asset-group [isEdit]="isEdit" [selectedAssetGroupForEdit]="selectedAssetGroupForEdit"
+        (visibleComponent)="closeModal($event)"></cisco-bpa-platform-add-asset-group>
+    </ng-template>
+  </cxui-modal>
+</div>

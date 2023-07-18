@@ -49,10 +49,3 @@ jobs:
     steps:
       - name: Test
       - run : npm run test
-      
-      - name: rome 
-         - uses:rome/setup-rome@v0.4
-          - run:rome --help
-    
-    
-

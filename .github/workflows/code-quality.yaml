@@ -42,10 +42,7 @@ jobs:
            VALIDATE_TYPESCRIPT_ES: false
            VALIDATE_TYPESCRIPT_STANDARD: false
        
-       
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Test
-      - run : npm run test
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+      - run: npm run build 
+      - run: npm test

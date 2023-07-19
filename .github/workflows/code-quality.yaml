@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: Install dependencies
         run: npm install
@@ -37,5 +37,14 @@ jobs:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            DEFAULT_BRANCH: main
            DISABLE_ERRORS: true
-           VALIDATE_ALL_CODEBASE: false
-
+           VALIDATE_JAVASCRIPT_ES: false
+           VALIDATE_TYPESCRIPT_ES: false
+           VALIDATE_TYPESCRIPT_STANDARD: false
+     
+      - name: Rome setup
+      - uses: rome/setup-rome@v0.4
+        with:
+              version: 11.0.0
+              
+      - uses: actions/checkout@v2
+      - run: rome ci 
